@@ -136,6 +136,10 @@
     <section class="lab-section">
       <h2>Attribute, Class and Style Binding with <code>v-bind</code></h2>
       <p>Highlighting Specific Authors:</p>
+      <li class="highlight">
+        {{ orwell.name }} 
+      </li>
+
 
     </section>
   </div>
