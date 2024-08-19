@@ -92,7 +92,7 @@ const validatePassword = (blur) => {
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-8 offset-md-2">
-        <h1 class="text-center">🗄️ W4. Library Registration Form</h1>
+        <h1 class="text-center">🗄️ W5. Library Registration Form</h1>
         <p class="text-center">
           This form now includes validation. Registered users are displayed in a data table below
           (PrimeVue).
@@ -143,7 +143,7 @@ const validatePassword = (blur) => {
               <div v-if="errors.confirmPassword" class="text-danger">
                   {{ errors.confirmPassword }}
               </div>
-          </div>
+            </div>
           </div>
           <div class="row mb-3">
             <div class="col-md-6 col-sm-6">
