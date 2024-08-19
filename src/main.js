@@ -15,4 +15,5 @@ app.use(PrimeVue, {
   }
 })
 
-createApp(App).mount('#app')
+// createApp(App).mount('#app')
+app.mount('#app')
