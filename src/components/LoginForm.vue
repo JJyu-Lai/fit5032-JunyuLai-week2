@@ -86,7 +86,19 @@
     </div>
   </div>
 
-  <!-- <div class="row mt-5" v-if="submittedCards.length">
+  <div class="row mt-5" v-if="submittedCards.length">
+    <div>
+      <DataTable :value="submittedCards">
+        <Column field="username" header="Username"></Column>
+        <Column field="password" header="Password"></Column>
+        <Column field="isAustralian" header="Australian Resident" :body="formatResident"></Column>
+        <Column field="gender" header="Gender"></Column>
+        <Column field="reason" header="Reason"></Column>
+      </DataTable>
+    </div>
+  </div>
+
+  <div class="row mt-5" v-if="submittedCards.length">
     <div class="d-flex flex-wrap justify-content-start">
       <div
         v-for="(card, index) in submittedCards"
@@ -105,18 +117,6 @@
           <li class="list-group-item">Reason: {{ card.reason }}</li>
         </ul>
       </div>
-    </div>
-  </div> -->
-
-  <div class="row mt-5" v-if="submittedCards.length">
-    <div>
-      <DataTable :value="submittedCards">
-        <Column field="username" header="Username"></Column>
-        <Column field="password" header="Password"></Column>
-        <Column field="isAustralian" header="Australian Resident" :body="formatResident"></Column>
-        <Column field="gender" header="Gender"></Column>
-        <Column field="reason" header="Reason"></Column>
-      </DataTable>
     </div>
   </div>
 </template>
