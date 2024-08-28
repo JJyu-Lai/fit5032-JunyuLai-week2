@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 
@@ -18,7 +18,12 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
-  if (!errors.value.username && !errors.value.password && !errors.value.reason) {
+  if (
+    !errors.value.username &&
+    !errors.value.password &&
+    !errors.value.reason &&
+    !errors.value.confirmPassword
+  ) {
     submittedCards.value.push({ ...formData.value })
     clearForm()
   }
@@ -40,7 +45,8 @@ const errors = ref({
   confirmPassword: null,
   resident: null,
   gender: null,
-  reason: null
+  reason: null,
+  checkFriend: null
 })
 
 const validateName = (blur) => {
@@ -86,15 +92,24 @@ const validateConfirmPassword = (blur) => {
   }
 }
 
-const validateInput = (blur) => {
-  const reason = formData.value.reason
-  const hasSpecialChar = /friend/.test(reason)
-  if (hasSpecialChar) {
-    if (blur) errors.value.reason = 'Great to have a friend'
+const validateInput = () => {
+  if (formData.value.reason.length < 10) {
+    errors.value.reason = 'Name must be at least 10 characters'
   } else {
     errors.value.reason = null
   }
+
+  if (formData.value.reason.includes('friend')) {
+    errors.value.checkFriend = 'Great to have a friend'
+  } else {
+    errors.value.checkFriend = null
+  }
 }
+
+watch(formData.value.reason),
+  () => {
+    validateInput()
+  }
 </script>
 
 <template>
@@ -178,13 +193,16 @@ const validateInput = (blur) => {
               @input="validateInput"
               @blur="validateInput"
             ></textarea>
-            <div v-if="errors.reason" class="text-success">
+            <div v-if="errors.reason" class="text-danger">
               {{ errors.reason }}
+            </div>
+            <div v-if="errors.checkFriend" class="text-success">
+              {{ errors.checkFriend }}
             </div>
           </div>
           <div class="mb-3">
             <label for="reason" class="form-label">Suburb</label>
-            <input type="text" class="form-control" id="suburb" v-bind:value="formData.suburb" />
+            <input type="text" class="form-control" id="suburb" v-model="formData.suburb" />
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>

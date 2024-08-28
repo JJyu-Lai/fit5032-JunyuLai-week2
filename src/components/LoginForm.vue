@@ -74,7 +74,7 @@
               @input="() => validateReason(false)"
               v-model="formData.reason"
             ></textarea>
-            <div v-if="errors.reason" class="text-danger">{{ errors.reason }}</div>
+            <div v-if="errors.reason" class="text-success">{{ errors.reason }}</div>
           </div>
 
           <div class="text-center">
