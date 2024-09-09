@@ -2,6 +2,11 @@
 import { ref, watch } from 'vue'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
+import {signOut,getAuth} from 'firebase/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const auth = getAuth()
 
 const formData = ref({
   username: '',
@@ -14,6 +19,17 @@ const formData = ref({
 })
 
 const submittedCards = ref([])
+
+const logout = () => {
+  signOut(auth)
+    .then(() => {
+      console.log('logout seccessful!!!!!')
+      router.push('/login') // 重定向到登录页或其他页面
+    })
+    .catch((error) => {
+      console.log(error.code)
+    })
+}
 
 const submitForm = () => {
   validateName(true)
@@ -245,6 +261,7 @@ watch(formData.value.reason),
       </div>
     </div>
   </div>
+  <p><button @click="logout">logout</button></p>
 </template>
 
 <style scoped>
