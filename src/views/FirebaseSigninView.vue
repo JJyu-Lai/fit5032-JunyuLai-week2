@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
+import { isAuthenticated } from '../router';
+
+
 const email = ref('')
 const password = ref('')
 const router = useRouter()
@@ -12,6 +15,7 @@ const signin = () => {
       console.log('Firebase Register Successful!')
       router.push('/')
       console.log(auth.currentUser)
+      isAuthenticated.value = auth.currentUser
     })
     .catch((error) => {
       console.log(error.code)

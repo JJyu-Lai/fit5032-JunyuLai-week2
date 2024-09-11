@@ -9,7 +9,7 @@ import BookList from '@/components/BookList.vue'
 
 import { ref } from 'vue'
 
-const isAuthenticated = ref(false)
+const isAuthenticated = ref(null)
 
 const routes = [
   {

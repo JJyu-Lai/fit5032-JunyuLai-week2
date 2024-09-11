@@ -15,6 +15,7 @@
 import { ref } from 'vue'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useRoute } from 'vue-router'
+
 const email = ref('')
 const password = ref('')
 const router = useRoute()

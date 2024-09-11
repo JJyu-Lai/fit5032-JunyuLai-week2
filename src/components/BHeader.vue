@@ -1,12 +1,22 @@
 <script setup>
 import { isAuthenticated } from '../router';
 import { useRouter } from 'vue-router';
+import {signOut,getAuth} from 'firebase/auth'
 
 const router = useRouter()
+const auth = getAuth()
 
-const Logout = () =>{
-  isAuthenticated.value = false
-  router.push({name:'Login'})
+const Logout = () => {
+  signOut(auth)
+    .then(() => {
+      console.log(isAuthenticated.value)
+      router.push('/firebaseLogin') // 重定向到登录页或其他页面
+      isAuthenticated.value = null
+      alert('sign out!!!!')
+    })
+    .catch((error) => {
+      console.log(error.code)
+    })
 }
 </script>
 
