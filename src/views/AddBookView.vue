@@ -13,13 +13,13 @@
       <button type="submit">Add Book</button>
     </form>
   </div>
+  <BookList/>
 </template>
 
 <script>
 import { ref } from 'vue'
 import db from '@/Firebase/init'
 import { collection, addDoc } from 'firebase/firestore'
-
 import BookList from '../components/BookList.vue'
 import router from '@/router';
 
@@ -43,7 +43,7 @@ export default {
         isbn.value = ''
         name.value = ''
         alert('Book added successfully!')
-        router.push('/')
+        // router.push('/')
       } catch (error) {
         console.error('Error adding book:', error)
       }

@@ -1,5 +1,5 @@
 <script setup>
-import { isAuthenticated } from '../router';
+import { isAuthenticated } from '../router/index.js';
 import { useRouter } from 'vue-router';
 import {signOut,getAuth} from 'firebase/auth'
 
@@ -35,7 +35,7 @@ const Logout = () => {
             <router-link to="/about" class="nav-link" active-class="active">About</router-link>
           </li>
           <li class="nav-item" v-if="!isAuthenticated">
-            <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
+            <router-link to="/firebaseLogin" class="nav-link" active-class="active">FirebaseLogin</router-link>
           </li>
           <li v-else>
             <button class="nav-link btn btn-link disabled">Login</button>
@@ -43,18 +43,18 @@ const Logout = () => {
           <li class="nav-item" v-if="isAuthenticated">
             <button class="nav-link btn btn-link" @click="Logout">Logout</button>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/firebaseLogin" class="nav-link" active-class="active">FirebaseLogin</router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link to="/firebaseRegister" class="nav-link" active-class="active">FirebaseRegister</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isAuthenticated && isAuthenticated.role === 'admin'">
             <router-link to="/addbook" class="nav-link" active-class="active">Add Book</router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/bookList" class="nav-link" active-class="active">Book List</router-link>
-          </li>
+          </li> -->
         </ul>
       </header>
     </div>

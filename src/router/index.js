@@ -44,13 +44,17 @@ const routes = [
   {
     path: '/addbook',
     name: 'AddBook',
-    component: AddBookView
+    component: AddBookView,
+    beforeEnter: (to, from, next) => {
+      if (!isAuthenticated.value) next({ name: 'FirebaseLogin' })
+      else next()
+    }
   },
-  {
-    path: '/bookList',
-    name: 'BookList',
-    component: BookList
-  }
+  // {
+  //   path: '/bookList',
+  //   name: 'BookList',
+  //   component: BookList
+  // }
 ]
 
 const router = createRouter({
