@@ -6,6 +6,8 @@ import FirebaseSigninView from '../views/FirebaseSigninView.vue'
 import FirebaseRegisterView from '../views/FirebaseRegisterView.vue'
 import AddBookView from '@/views/AddBookView.vue'
 import BookList from '@/components/BookList.vue'
+import GetBookCountView from '@/views/GetBookCountView.vue'
+import WeatherView from '../views/WeatherView.vue';
 
 import { ref } from 'vue'
 
@@ -50,11 +52,16 @@ const routes = [
       else next()
     }
   },
-  // {
-  //   path: '/bookList',
-  //   name: 'BookList',
-  //   component: BookList
-  // }
+  {
+    path: '/getBookCount',
+    name: 'GetBookCount',
+    component: GetBookCountView
+  },
+  {
+    path: '/WeatherCheck',
+    name: 'WeatherCheck',
+    component: WeatherView,
+  }
 ]
 
 const router = createRouter({
