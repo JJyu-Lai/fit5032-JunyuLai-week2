@@ -44,13 +44,9 @@ const routes = [
     component: FirebaseRegisterView
   },
   {
-    path: '/addbook',
-    name: 'AddBook',
-    component: AddBookView,
-    beforeEnter: (to, from, next) => {
-      if (!isAuthenticated.value) next({ name: 'FirebaseLogin' })
-      else next()
-    }
+    path: '/addBookCount',
+    name: 'AddBookCount',
+    component: AddBookView
   },
   {
     path: '/getBookCount',

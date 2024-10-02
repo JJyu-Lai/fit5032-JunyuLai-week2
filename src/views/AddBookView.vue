@@ -1,61 +1,46 @@
-<template>
-  <div>
-    <h1>Add Book</h1>
-    <form @submit.prevent="addBook">
-      <div>
-        <label for="isbn">ISBN:</label>
-        <input type="text" v-model="isbn" id="isbn" required />
-      </div>
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" v-model="name" id="name" required />
-      </div>
-      <button type="submit">Add Book</button>
-    </form>
-  </div>
-  <BookList/>
-</template>
+<script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+import BookList from '../components/BookList.vue';
 
-<script>
-import { ref } from 'vue'
-import db from '@/Firebase/init'
-import { collection, addDoc } from 'firebase/firestore'
-import BookList from '../components/BookList.vue'
-import router from '@/router';
+const isbn = ref('');
+const name = ref('');
 
-export default {
-  setup() {
-    const isbn = ref('')
-    const name = ref('')
-
-    const addBook = async () => {
-      try {
-        const isbnNumber = Number(isbn.value)
+const addBook = async () => {
+    try {
+        const isbnNumber = Number(isbn.value);
         if (isNaN(isbnNumber)) {
-          alert('ISBN must be a valid number')
-          return
+            alert('ISBN must be a valid number');
+            return;
         }
-
-        await addDoc(collection(db, 'books'), {
-          isbn: isbnNumber,
-          name: name.value
-        })
-        isbn.value = ''
-        name.value = ''
-        alert('Book added successfully!')
-        // router.push('/')
-      } catch (error) {
-        console.error('Error adding book:', error)
-      }
+        // 发送 POST 请求到 Cloud Function
+        await axios.post('https://addbook-doxhv7224a-uc.a.run.app', {
+            isbn: isbnNumber,
+            name: name.value,
+        });
+        isbn.value = '';
+        name.value = '';
+        alert('Book added successfully!');
+    } catch (error) {
+        console.error('Error adding book: ', error);
+        alert('Failed to add book');
     }
-    return {
-      isbn,
-      name,
-      addBook
-    }
-  },
-  components: {
-    BookList
-  }
-}
+};
 </script>
+<template>
+    <div>
+        <h1>Add Book</h1>
+        <form @submit.prevent="addBook">
+            <div>
+                <label for="isbn">ISBN:</label>
+                <input type="text" v-model="isbn" id="isbn" required />
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" v-model="name" id="name" required />
+            </div>
+            <button type="submit">Add book</button>
+        </form>
+        <BookList />
+    </div>
+</template>
